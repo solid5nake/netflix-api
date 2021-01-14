@@ -1,7 +1,7 @@
 package com.netflix.api.controller;
 
-import com.netflix.api.dto.MovieDetailsDto;
 import com.netflix.api.service.MovieService;
+import com.netflix.api.view.MovieView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,8 +14,8 @@ public class MovieController {
   @Autowired
   private MovieService service;
 
-  @GetMapping("/movie/{movieId}")
-  public MovieDetailsDto getMovie(@PathVariable String movieId) {
-    return service.getMovie(movieId);
+  @GetMapping("/movies/{movieId}")
+  public MovieView getMovie(@PathVariable String movieId) {
+    return service.getBannerMovie(movieId);
   }
 }
