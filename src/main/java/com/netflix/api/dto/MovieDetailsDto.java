@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "backdrop_path",
@@ -16,11 +17,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "runtime",
     "title"
 })
+
 public class MovieDetailsDto {
 
   @JsonProperty("backdrop_path")
   private String backdropPath;
-  @JsonProperty("id")
+    @JsonProperty("id")
   private Integer id;
   @JsonProperty("original_language")
   private String originalLanguage;
