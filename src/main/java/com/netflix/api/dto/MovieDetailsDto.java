@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -15,14 +16,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "overview",
     "poster_path",
     "runtime",
-    "title"
+    "title",
+    "genres",
 })
 
 public class MovieDetailsDto {
 
   @JsonProperty("backdrop_path")
   private String backdropPath;
-    @JsonProperty("id")
+  @JsonProperty("id")
   private Integer id;
   @JsonProperty("original_language")
   private String originalLanguage;
@@ -36,6 +38,19 @@ public class MovieDetailsDto {
   private Integer runtime;
   @JsonProperty("title")
   private String title;
+  @JsonProperty("genres")
+  private List<Genre> genres = null;
+
+
+  @JsonProperty("genres")
+  public List<Genre> getGenres() {
+    return genres;
+  }
+
+  @JsonProperty("genres")
+  public void setGenres(List<Genre> genres) {
+    this.genres = genres;
+  }
 
   @JsonProperty("backdrop_path")
   public String getBackdropPath() {
