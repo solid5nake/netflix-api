@@ -1,18 +1,33 @@
 package com.netflix.api.view;
 
 
+import com.netflix.api.dto.Genre;
+import com.netflix.api.dto.Hdmovielogo;
+import com.netflix.api.dto.Moviethumb;
+
+import java.util.List;
+
 public class MovieView {
 
-    private String backdropPath;
     private Integer id;
-
+    private String title;
     private String overview;
     private String youtubeKey;
-    private String posterPath;
     private Integer runtime;
-    private String title;
+    private String posterPath;
+    private String backdropPath;
+    private List<Hdmovielogo> hdmovielogo;
+    private List<Moviethumb> moviethumb;
 
+    public List<Genre> getGenres() {
+        return genres;
+    }
 
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
+
+    private List<Genre> genres;
 
     public String getOverview() {
         return overview;
@@ -54,8 +69,6 @@ public class MovieView {
         this.title = title;
     }
 
-
-
     public void setBackdropPath(String backdropPath) {
 //        MovieDetailsDto movieDetailsDto;
         this.backdropPath = backdropPath;
@@ -73,6 +86,19 @@ public class MovieView {
         return id;
     }
 
-//
+    public List<Hdmovielogo> getHdmovielogo() {
+        return hdmovielogo;
+    }
 
+    public void setHdmovielogo(List<Hdmovielogo> hdmovielogo) {
+        this.hdmovielogo = hdmovielogo;
+    }
+
+    public List<Moviethumb> getMoviethumb() {
+        return moviethumb;
+    }
+
+    public void setMoviethumb(List<Moviethumb> moviethumb) {
+        this.moviethumb = moviethumb;
+    }
 }
