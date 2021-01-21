@@ -9,126 +9,159 @@ import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "backdrop_path",
-    "id",
-    "original_language",
-    "original_title",
-    "overview",
-    "poster_path",
-    "runtime",
-    "title",
-    "genres",
+        "backdrop_path",
+        "id",
+        "original_language",
+        "original_title",
+        "overview",
+        "poster_path",
+        "runtime",
+        "title",
+        "genres",
+        "videos",
+        "result",
+        "youtubeKey"
 })
 
 public class MovieDetailsDto {
 
-  @JsonProperty("backdrop_path")
-  private String backdropPath;
-  @JsonProperty("id")
-  private Integer id;
-  @JsonProperty("original_language")
-  private String originalLanguage;
-  @JsonProperty("original_title")
-  private String originalTitle;
-  @JsonProperty("overview")
-  private String overview;
-  @JsonProperty("poster_path")
-  private String posterPath;
-  @JsonProperty("runtime")
-  private Integer runtime;
-  @JsonProperty("title")
-  private String title;
-  @JsonProperty("genres")
-  private List<Genre> genres = null;
+    @JsonProperty("backdrop_path")
+    private String backdropPath;
+    @JsonProperty("id")
+    private Integer id;
+    @JsonProperty("original_language")
+    private String originalLanguage;
+    @JsonProperty("original_title")
+    private String originalTitle;
+    @JsonProperty("overview")
+    private String overview;
+    @JsonProperty("poster_path")
+    private String posterPath;
+    @JsonProperty("runtime")
+    private Integer runtime;
+    @JsonProperty("title")
+    private String title;
+    @JsonProperty("genres")
+    private List<Genre> genres;
+    @JsonProperty("videos")
+    private Videos videos;
+    @JsonProperty("result")
+    private List<Result> result;
+    @JsonProperty("youtubeKey")
+    private String youtubeKey;
 
 
-  @JsonProperty("genres")
-  public List<Genre> getGenres() {
-    return genres;
-  }
+    public List<Result> getResult() {
+        return result;
+    }
+    public void setResult(List<Result> result) {
+        this.result = result;
+    }
 
-  @JsonProperty("genres")
-  public void setGenres(List<Genre> genres) {
-    this.genres = genres;
-  }
 
-  @JsonProperty("backdrop_path")
-  public String getBackdropPath() {
-    return backdropPath;
-  }
+    public void setVideos(Videos videos) {
+        this.videos = videos;
+    }
+    public Videos getVideos() {
+        return videos;
+    }
 
-  @JsonProperty("backdrop_path")
-  public void setBackdropPath(String backdropPath) {
-    this.backdropPath = backdropPath;
-  }
 
-  @JsonProperty("id")
-  public Integer getId() {
-    return id;
-  }
+    public String getYoutubeKey() {
+        return youtubeKey;
+    }
+    public void setYoutubeKey(String youtubeKey) {
+        this.youtubeKey = youtubeKey;
+    }
 
-  @JsonProperty("id")
-  public void setId(Integer id) {
-    this.id = id;
-  }
 
-  @JsonProperty("original_language")
-  public String getOriginalLanguage() {
-    return originalLanguage;
-  }
+    @JsonProperty("genres")
+    public List<Genre> getGenres() {
+        return genres;
+    }
 
-  @JsonProperty("original_language")
-  public void setOriginalLanguage(String originalLanguage) {
-    this.originalLanguage = originalLanguage;
-  }
+    @JsonProperty("genres")
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
 
-  @JsonProperty("original_title")
-  public String getOriginalTitle() {
-    return originalTitle;
-  }
+    @JsonProperty("backdrop_path")
+    public String getBackdropPath() {
+        return backdropPath;
+    }
 
-  @JsonProperty("original_title")
-  public void setOriginalTitle(String originalTitle) {
-    this.originalTitle = originalTitle;
-  }
+    @JsonProperty("backdrop_path")
+    public void setBackdropPath(String backdropPath) {
+        this.backdropPath = backdropPath;
+    }
 
-  @JsonProperty("overview")
-  public String getOverview() {
-    return overview;
-  }
+    @JsonProperty("id")
+    public Integer getId() {
+        return id;
+    }
 
-  @JsonProperty("overview")
-  public void setOverview(String overview) {
-    this.overview = overview;
-  }
+    @JsonProperty("id")
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-  @JsonProperty("poster_path")
-  public String getPosterPath() {
-    return posterPath;
-  }
+    @JsonProperty("original_language")
+    public String getOriginalLanguage() {
+        return originalLanguage;
+    }
 
-  @JsonProperty("poster_path")
-  public void setPosterPath(String posterPath) {
-    this.posterPath = posterPath;
-  }
+    @JsonProperty("original_language")
+    public void setOriginalLanguage(String originalLanguage) {
+        this.originalLanguage = originalLanguage;
+    }
 
-  @JsonProperty("runtime")
-  public Integer getRuntime() {
-    return runtime;
-  }
+    @JsonProperty("original_title")
+    public String getOriginalTitle() {
+        return originalTitle;
+    }
 
-  @JsonProperty("runtime")
-  public void setRuntime(Integer runtime) {
-    this.runtime = runtime;
-  }
+    @JsonProperty("original_title")
+    public void setOriginalTitle(String originalTitle) {
+        this.originalTitle = originalTitle;
+    }
 
-  @JsonProperty("title")
-  public String getTitle() {
-    return title;
-  }
+    @JsonProperty("overview")
+    public String getOverview() {
+        return overview;
+    }
 
-  @JsonProperty("title")
-  public void setTitle(String title) {
-    this.title = title;
-  }
+    @JsonProperty("overview")
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    @JsonProperty("poster_path")
+    public String getPosterPath() {
+        return posterPath;
+    }
+
+    @JsonProperty("poster_path")
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
+    }
+
+    @JsonProperty("runtime")
+    public Integer getRuntime() {
+        return runtime;
+    }
+
+    @JsonProperty("runtime")
+    public void setRuntime(Integer runtime) {
+        this.runtime = runtime;
+    }
+
+    @JsonProperty("title")
+    public String getTitle() {
+        return title;
+    }
+
+    @JsonProperty("title")
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }
