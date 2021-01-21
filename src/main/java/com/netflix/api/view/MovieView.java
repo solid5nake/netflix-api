@@ -1,9 +1,8 @@
 package com.netflix.api.view;
 
 
-import com.netflix.api.dto.Genre;
-import com.netflix.api.dto.Hdmovielogo;
-import com.netflix.api.dto.Moviethumb;
+import com.netflix.api.dto.*;
+//import com.netflix.api.dto.Result;
 
 import java.util.List;
 
@@ -12,12 +11,31 @@ public class MovieView {
     private Integer id;
     private String title;
     private String overview;
-    private String youtubeKey;
     private Integer runtime;
     private String posterPath;
     private String backdropPath;
     private List<Hdmovielogo> hdmovielogo;
     private List<Moviethumb> moviethumb;
+    private List<Genre> genres;
+    private String youtubeKey;
+    private Videos videos;
+    private List<Result> result;
+
+    public List<Result> getResult() {
+        return result;
+    }
+
+    public void setResult(List<Result> result) {
+        this.result = result;
+    }
+
+    public String getYoutubeKey() {
+        return youtubeKey;
+    }
+
+    public void setYoutubeKey(Result youtubeKey) {
+        this.youtubeKey = youtubeKey.getKey();
+    }
 
     public List<Genre> getGenres() {
         return genres;
@@ -27,7 +45,14 @@ public class MovieView {
         this.genres = genres;
     }
 
-    private List<Genre> genres;
+
+    public Videos getVideos() {
+        return videos;
+    }
+
+    public void setVideos(Videos videos) {
+        this.videos = videos;
+    }
 
     public String getOverview() {
         return overview;
@@ -35,14 +60,6 @@ public class MovieView {
 
     public void setOverview(String overview) {
         this.overview = overview;
-    }
-
-    public String getYoutubeKey() {
-        return youtubeKey;
-    }
-
-    public void setYoutubeKey(String youtubeKey) {
-        this.youtubeKey = youtubeKey;
     }
 
     public String getPosterPath() {
@@ -70,14 +87,13 @@ public class MovieView {
     }
 
     public void setBackdropPath(String backdropPath) {
-//        MovieDetailsDto movieDetailsDto;
         this.backdropPath = backdropPath;
     }
 
     public void setId(Integer id) {
-
         this.id = id;
     }
+
     public String getBackdropPath() {
         return backdropPath;
     }
