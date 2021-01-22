@@ -1,6 +1,7 @@
 package com.netflix.api.view;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.netflix.api.dto.*;
 //import com.netflix.api.dto.Result;
 
@@ -20,6 +21,17 @@ public class MovieView {
     private String youtubeKey;
     private Videos videos;
     private List<Result> result;
+    private Object credits;
+
+
+    public Object getCredits() {
+        return credits;
+    }
+
+    public void setCredits(Object credits) {
+        this.credits = credits;
+    }
+
 
     public List<Result> getResult() {
         return result;
