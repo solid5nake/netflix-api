@@ -20,7 +20,8 @@ import java.util.List;
         "genres",
         "videos",
         "result",
-        "youtubeKey"
+        "youtubeKey",
+        "credits"
 })
 
 public class MovieDetailsDto {
@@ -50,6 +51,16 @@ public class MovieDetailsDto {
     @JsonProperty("youtubeKey")
     private String youtubeKey;
 
+    public Object getCredits() {
+        return credits;
+    }
+
+    public void setCredits(Object credits) {
+        this.credits = credits;
+    }
+
+    @JsonProperty("credits")
+    private Object credits;
 
     public List<Result> getResult() {
         return result;
