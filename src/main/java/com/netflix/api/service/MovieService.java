@@ -9,6 +9,7 @@ import com.netflix.api.view.MovieView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -27,12 +28,14 @@ public class MovieService {
     private String fanartApiKey;
 
     private String language = "en-US";
-    private String videos = "videos";
+//    combinatie van
+    private String videosAndCredits = "videos,credits";
+//    private String credits = "credits";
 
     public MovieView getBannerMovie(String movieId) {
 
 //    MovieDetailsDto movie = client.getMovieDetails(movieId, tmdbApiKey);
-        MovieDetailsDto movie = client.getMovieDetails(movieId, tmdbApiKey, language, videos);
+        MovieDetailsDto movie = client.getMovieDetails(movieId, tmdbApiKey, language, videosAndCredits);
         MovieLogoDto logo = logoClient.getMovieLogos(movieId, fanartApiKey);
         System.out.println(movie);
 
@@ -54,7 +57,8 @@ public class MovieService {
         view.setResult(movie.getVideos().getResults());
         List<Result> listForYoutubeKey = movie.getVideos().getResults();
         view.setYoutubeKey(listForYoutubeKey.get(0));
-
+        
+        view.setCredits(movie.getCredits());
         return view;
     }
 }
