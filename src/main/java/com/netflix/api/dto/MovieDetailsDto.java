@@ -50,17 +50,18 @@ public class MovieDetailsDto {
     private List<Result> result;
     @JsonProperty("youtubeKey")
     private String youtubeKey;
+    @JsonProperty("credits")
+    private Credits credits;
 
-    public Object getCredits() {
+    public Credits getCredits() {
         return credits;
     }
 
-    public void setCredits(Object credits) {
+    public void setCredits(Credits credits) {
         this.credits = credits;
     }
 
-    @JsonProperty("credits")
-    private Object credits;
+
 
     public List<Result> getResult() {
         return result;
