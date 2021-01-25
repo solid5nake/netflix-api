@@ -19,27 +19,42 @@ public class MovieView {
     private List<Moviethumb> moviethumb;
     private List<Genre> genres;
     private String youtubeKey;
-    private Videos videos;
-    private List<Result> result;
-    private Object credits;
+
+    private String director;
+
+//    private Videos videos;
+//    private List<Result> result;
+//    private Credits credits;
 
 
-    public Object getCredits() {
-        return credits;
+    public String getDirector() {
+        return director;
+    }
+    public void setDirector(Credits credits) {
+        this.director = credits.getDirector();
     }
 
-    public void setCredits(Object credits) {
-        this.credits = credits;
-    }
+//    public void setDirector(List<Crew> listOfCrewForDirector) {
+//        this.director = listOfCrewForDirector.stream().filter(t -> t.getJob().equals("Director")).findFirst().get();
+//    }
 
 
-    public List<Result> getResult() {
-        return result;
-    }
-
-    public void setResult(List<Result> result) {
-        this.result = result;
-    }
+//    public Credits getCredits() {
+//        return credits;
+//    }
+//
+//    public void setCredits(Credits credits) {
+//        this.credits = credits;
+//    }
+//
+//
+//    public List<Result> getResult() {
+//        return result;
+//    }
+//
+//    public void setResult(List<Result> result) {
+//        this.result = result;
+//    }
 
     public String getYoutubeKey() {
         return youtubeKey;
@@ -58,13 +73,13 @@ public class MovieView {
     }
 
 
-    public Videos getVideos() {
-        return videos;
-    }
-
-    public void setVideos(Videos videos) {
-        this.videos = videos;
-    }
+//    public Videos getVideos() {
+//        return videos;
+//    }
+//
+//    public void setVideos(Videos videos) {
+//        this.videos = videos;
+//    }
 
     public String getOverview() {
         return overview;
