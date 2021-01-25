@@ -13,5 +13,5 @@ public interface MovieClient {
 //  public MovieDetailsDto getMovieDetails(@PathVariable String movieId, @RequestParam(value = "api_key") String apiKey);
 //}
   @GetMapping("/movie/{movieId}")
-  public MovieDetailsDto getMovieDetails(@PathVariable String movieId, @RequestParam(value = "api_key") String apiKey,@RequestParam(value = "language") String language, @RequestParam( value = "append_to_response") String videos);
+  public MovieDetailsDto getMovieDetails(@PathVariable String movieId, @RequestParam(value = "api_key") String apiKey,@RequestParam(value = "language") String language, @RequestParam( value = "append_to_response") String videosAndCredits);
 }
