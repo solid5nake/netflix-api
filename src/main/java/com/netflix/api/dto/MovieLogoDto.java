@@ -1,17 +1,13 @@
 
 package com.netflix.api.dto;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MovieLogoDto {
 
     private String tmdb_id;
     private List<Hdmovielogo> hdmovielogo = null;
     private List<Moviethumb> moviethumb = null;
-
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     public String getTmdb_id() {
         return tmdb_id;
@@ -24,6 +20,13 @@ public class MovieLogoDto {
     public List<Hdmovielogo> getHdmovielogo() {
         return hdmovielogo;
     }
+
+    public String getFirstLogo() {
+        String en = "en";
+        Hdmovielogo firstLogo = hdmovielogo.stream().filter(l -> l.getLang().equals(en)).findFirst().get();
+        return firstLogo.getUrl();
+    }
+
 
     public void setHdmovielogo(List<Hdmovielogo> hdmovielogo) {
         this.hdmovielogo = hdmovielogo;
