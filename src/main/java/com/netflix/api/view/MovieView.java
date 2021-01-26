@@ -1,11 +1,11 @@
 package com.netflix.api.view;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.netflix.api.dto.*;
-//import com.netflix.api.dto.Result;
 
 import java.util.List;
+
+//import com.netflix.api.dto.Result;
 
 public class MovieView {
 
@@ -15,17 +15,24 @@ public class MovieView {
     private Integer runtime;
     private String posterPath;
     private String backdropPath;
-    private List<Hdmovielogo> hdmovielogo;
-    private List<Moviethumb> moviethumb;
     private List<Genre> genres;
     private String youtubeKey;
 
+    private String movieThumbUrl;
+    private String logoUrl;
     private String director;
 
 //    private Videos videos;
 //    private List<Result> result;
 //    private Credits credits;
 
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
+    }
 
     public String getDirector() {
         return director;
@@ -37,7 +44,6 @@ public class MovieView {
 //    public void setDirector(List<Crew> listOfCrewForDirector) {
 //        this.director = listOfCrewForDirector.stream().filter(t -> t.getJob().equals("Director")).findFirst().get();
 //    }
-
 
 //    public Credits getCredits() {
 //        return credits;
@@ -71,7 +77,6 @@ public class MovieView {
     public void setGenres(List<Genre> genres) {
         this.genres = genres;
     }
-
 
 //    public Videos getVideos() {
 //        return videos;
@@ -129,19 +134,11 @@ public class MovieView {
         return id;
     }
 
-    public List<Hdmovielogo> getHdmovielogo() {
-        return hdmovielogo;
+    public String getMovieThumbUrl() {
+        return movieThumbUrl;
     }
 
-    public void setHdmovielogo(List<Hdmovielogo> hdmovielogo) {
-        this.hdmovielogo = hdmovielogo;
-    }
-
-    public List<Moviethumb> getMoviethumb() {
-        return moviethumb;
-    }
-
-    public void setMoviethumb(List<Moviethumb> moviethumb) {
-        this.moviethumb = moviethumb;
+    public void setMovieThumbUrl(String movieThumbUrl) {
+        this.movieThumbUrl = movieThumbUrl;
     }
 }
