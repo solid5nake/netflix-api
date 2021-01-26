@@ -27,6 +27,11 @@ public class MovieLogoDto {
         return firstLogo.getUrl();
     }
 
+    public String getFirstThumbnail() {
+        String en = "en";
+        Moviethumb firstMovieThumb = moviethumb.stream().filter(mt -> mt.getLang().equals(en)).findAny().get();
+        return firstMovieThumb.getUrl();
+    }
 
     public void setHdmovielogo(List<Hdmovielogo> hdmovielogo) {
         this.hdmovielogo = hdmovielogo;
@@ -39,6 +44,5 @@ public class MovieLogoDto {
     public void setMoviethumb(List<Moviethumb> moviethumb) {
         this.moviethumb = moviethumb;
     }
-
 
 }
