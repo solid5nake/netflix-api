@@ -2,7 +2,6 @@ package com.netflix.api.service;
 
 import com.netflix.api.client.MovieClient;
 import com.netflix.api.client.MovieLogoClient;
-import com.netflix.api.dto.Crew;
 import com.netflix.api.dto.MovieDetailsDto;
 import com.netflix.api.dto.MovieLogoDto;
 import com.netflix.api.dto.Result;
@@ -38,7 +37,6 @@ public class MovieService {
 //    MovieDetailsDto movie = client.getMovieDetails(movieId, tmdbApiKey);
         MovieDetailsDto movie = client.getMovieDetails(movieId, tmdbApiKey, language, videosAndCredits);
         MovieLogoDto logo = logoClient.getMovieLogos(movieId, fanartApiKey);
-        System.out.println(movie);
 
         MovieView view = new MovieView();
 
@@ -50,9 +48,8 @@ public class MovieService {
         view.setTitle(movie.getTitle());
         view.setRuntime(movie.getRuntime());
         view.setGenres(movie.getGenres());
-        view.setHdmovielogo(logo.getHdmovielogo());
-
-        view.setMoviethumb(logo.getMoviethumb());
+        view.setLogoUrl(logo.getFirstLogo());
+        view.setMovieThumbUrl(logo.getFirstThumbnail());
 //       v will set videos with results with lists of trailer info
 //    view.setVideos(movie.getVideos());
 //       v will set result with list of trailer info
