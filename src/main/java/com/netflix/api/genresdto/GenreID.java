@@ -1,10 +1,11 @@
 
-package com.netflix.api.dto;
+package com.netflix.api.genresdto;
 
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.netflix.api.dto.Result;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
