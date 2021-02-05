@@ -1,5 +1,5 @@
 
-package com.netflix.api.dto;
+package com.netflix.api.genresdto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
