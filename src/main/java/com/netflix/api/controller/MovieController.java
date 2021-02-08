@@ -22,11 +22,11 @@ public class MovieController {
     }
 
     @GetMapping("/movies/genres")
-    public GenreID getGenreMovies(@RequestParam(value = "with_genres", required = false) String genre,
-                                  @RequestParam(value = "language", required = false) String language,
-                                  @RequestParam(value = "with_cast", required = false) String cast,
-                                  @RequestParam(value = "with_company", required = false) String company,
-                                  @RequestParam(value = "with_decade", required = false) String decade
+    public Object getGenreMovies(@RequestParam(value = "with_genres", required = false) String genre,
+                                 @RequestParam(value = "language", required = false) String language,
+                                 @RequestParam(value = "with_cast", required = false) String cast,
+                                 @RequestParam(value = "with_company", required = false) String company,
+                                 @RequestParam(value = "with_decade", required = false) String decade
     ) {
 
 //        return genreService.getGenreMovies(genre, language, cast, company, decade);
