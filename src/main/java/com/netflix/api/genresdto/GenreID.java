@@ -5,32 +5,32 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.netflix.api.dto.Result;
+import com.netflix.api.genresdto.Result;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "page",
+//    "page",
     "results"
 })
 public class GenreID {
 
-    @JsonProperty("page")
-    private Integer page;
+//    @JsonProperty("page")
+//    private Integer page;
     @JsonProperty("results")
     private List<Result> results = null;
 
-    @JsonProperty("page")
-    public Integer getPage() {
-        return page;
-    }
-
-    @JsonProperty("page")
-    public void setPage(Integer page) {
-        this.page = page;
-    }
+//    @JsonProperty("page")
+//    public Integer getPage() {
+//        return page;
+//    }
+//
+//    @JsonProperty("page")
+//    public void setPage(Integer page) {
+//        this.page = page;
+//    }
 
     @JsonProperty("results")
-    public List<Result> getResults() {
+    public List<com.netflix.api.genresdto.Result> getResults() {
         return results;
     }
 
