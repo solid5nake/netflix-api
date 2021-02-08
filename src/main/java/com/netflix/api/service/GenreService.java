@@ -1,5 +1,4 @@
 package com.netflix.api.service;
-
 import com.netflix.api.client.MovieClient;
 import com.netflix.api.genresdto.Result;
 import com.netflix.api.genresdto.GenreID;
@@ -11,7 +10,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
-
 @Service
 public class GenreService {
 
@@ -32,16 +30,11 @@ public class GenreService {
         H("Hydrogen"),
         HE("Helium"),
         NE("Neon");
-
         public final String ID;
-
         private Element(String ID) {
             this.ID = ID;
         }
-
     }
-
-
 //public static Element valueOfLabel(String ID) {
 //    for (Element e : values()) {
 //        if (e.ID.equals(ID)) {
@@ -62,7 +55,6 @@ public class GenreService {
             default -> throw new IllegalStateException("Unexpected value: " + genre);
         };
     }
-
     private List<Result> get40MoviesByGenre(String genreNumberTMDB) {
         GenreID first20Movies = genreClient.getMoviesByGenre(tmdbApiKey, 1, genreNumberTMDB, language);
         GenreID second20Movies = genreClient.getMoviesByGenre(tmdbApiKey, 2, genreNumberTMDB, language);
@@ -79,9 +71,7 @@ public class GenreService {
             case "new line cinema" -> get40MoviesByCompany("12");
             default -> throw new IllegalStateException("Unexpected value: " + company);
         };
-
     }
-
     private List<Result> get40MoviesByCompany(String companyNumberTMDB) {
         GenreID first20Movies = genreClient.getMoviesByCompany(tmdbApiKey, 1, companyNumberTMDB, language);
         GenreID second20Movies = genreClient.getMoviesByCompany(tmdbApiKey, 2, companyNumberTMDB, language);
@@ -99,7 +89,6 @@ public class GenreService {
             default -> throw new IllegalStateException("Unexpected value: " + cast);
         };
     }
-
     private List<Result> get40MoviesByCast(String castNumberTMDB) {
         GenreID first20Movies = genreClient.getMoviesByCast(tmdbApiKey, 1, castNumberTMDB, language);
         GenreID second20Movies = genreClient.getMoviesByCast(tmdbApiKey, 2, castNumberTMDB, language);
@@ -107,7 +96,21 @@ public class GenreService {
         Stream.of(first20Movies.getResults(), second20Movies.getResults()).forEach(total40movies::addAll);
         return total40movies;
     }
-//    public GenreID getMoviesByDecade(String decade) {
-//        return genreClient.getMoviesByCast(tmdbApiKey, cast, language);
-//    }
+
+    public List<Result> getMoviesByDecade(String decade) {
+        return switch (decade.toLowerCase()) {
+            case "80" -> get40MoviesByDecade("1980-01-01", "1989-12-31");
+            case "90" -> get40MoviesByDecade("1990-01-01", "1999-12-31");
+            case "00" -> get40MoviesByDecade("2000-01-01","2009-12-31");
+
+            default -> throw new IllegalStateException("Unexpected value: " + decade);
+        };
+    }
+private List<Result> get40MoviesByDecade(String earliestDate, String latestDate) {
+    GenreID first20Movies = genreClient.getMoviesByDecade(tmdbApiKey, 1, language, earliestDate, latestDate);
+    GenreID second20Movies = genreClient.getMoviesByDecade(tmdbApiKey, 2, language, earliestDate, latestDate);
+    List<Result> total40movies = new ArrayList<>();
+    Stream.of(first20Movies.getResults(), second20Movies.getResults()).forEach(total40movies::addAll);
+    return total40movies;
+}
 }
