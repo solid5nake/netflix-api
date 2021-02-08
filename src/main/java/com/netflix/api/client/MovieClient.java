@@ -22,14 +22,14 @@ public interface MovieClient {
 
     @GetMapping("/discover/movie")
     public GenreID getMoviesByGenre(@RequestParam(value = "api_key") String apiKey,
-                                         @RequestParam(value = "page") Integer page,
-                                         @RequestParam(value = "with_genres") String genre,
-                                         @RequestParam(value = "language") String language
+                                    @RequestParam(value = "page") Integer page,
+                                    @RequestParam(value = "with_genres") String genre,
+                                    @RequestParam(value = "language") String language
 
     );
 
     @GetMapping("/discover/movie")
-    public  GenreID getMoviesByCast(@RequestParam(value = "api_key") String apiKey,
+    public GenreID getMoviesByCast(@RequestParam(value = "api_key") String apiKey,
                                    @RequestParam(value = "page") Integer page,
                                    @RequestParam(value = "with_cast") String cast,
                                    @RequestParam(value = "language") String language
@@ -37,17 +37,18 @@ public interface MovieClient {
     );
 
     @GetMapping("/discover/movie")
-    public  GenreID getMoviesByCompany(@RequestParam(value = "api_key") String apiKey,
+    public GenreID getMoviesByCompany(@RequestParam(value = "api_key") String apiKey,
                                       @RequestParam(value = "page") Integer page,
                                       @RequestParam(value = "with_companies") String company,
                                       @RequestParam(value = "language") String language
 
     );
-//  @GetMapping("/discover/movie")
-//  public GenreID getMoviesByDecade (@RequestParam(value = "api_key") String apiKey,
-//                                        @RequestParam(value = "with_page") Integer page,
-//                                     @RequestParam(value = "with_cast") String company,
-//                                     @RequestParam(value = "language") String language
-//
-//  );
+  @GetMapping("/discover/movie")
+  public GenreID getMoviesByDecade (@RequestParam(value = "api_key") String apiKey,
+                                     @RequestParam(value = "with_page") Integer page,
+                                     @RequestParam(value = "language") String language,
+                                     @RequestParam(value = "primary_release_date.gte")String startDate,
+                                     @RequestParam(value = "primary_release_date.lte")String endDate
+
+  );
 }
