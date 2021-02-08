@@ -37,9 +37,9 @@ public class MovieController {
            return  genreService.getMoviesByCast(cast);
         else if (company != null)
          return  genreService.getMoviesByCompany(company);
-//       else if (decade != null){
-//          return  genreService.getMoviesByDecade(decade);
-//        }
+       else if (decade != null){
+          return  genreService.getMoviesByDecade(decade);
+        }
        else
 //        System.out.println("genre= " + genre);
 //        System.out.println("language= " + language);
