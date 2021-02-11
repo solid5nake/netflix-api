@@ -28,24 +28,18 @@ public class MovieController {
                                  @RequestParam(value = "with_company", required = false) String company,
                                  @RequestParam(value = "with_decade", required = false) String decade
     ) {
-
-//        return genreService.getGenreMovies(genre, language, cast, company, decade);
-//        return genreService.getGenreMovies(genre, language);
+//        v returns 40 movie ids or 40 movie views, only switch on the appropriate one
         if (genre != null)
             return genreService.getMoviesByGenre(genre);
+//        if (genre != null)
+//            return genreService.get40MovieViewsByGenres(genre);
         else if (cast != null)
-           return  genreService.getMoviesByCast(cast);
+            return genreService.getMoviesByCast(cast);
         else if (company != null)
-         return  genreService.getMoviesByCompany(company);
-       else if (decade != null){
-          return  genreService.getMoviesByDecade(decade);
-        }
-       else
-//        System.out.println("genre= " + genre);
-//        System.out.println("language= " + language);
-//        System.out.println("cast= " + cast);
-        System.out.println("company= " + company);
-//        System.out.println("decade= " + decade);
-        return new GenreID();
+            return genreService.getMoviesByCompany(company);
+        else if (decade != null) {
+            return genreService.getMoviesByDecade(decade);
+        } else
+            return new GenreID();
     }
 }
