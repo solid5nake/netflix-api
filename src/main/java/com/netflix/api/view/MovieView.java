@@ -25,7 +25,9 @@ public class MovieView {
 //    private Videos videos;
 //    private List<Result> result;
 //    private Credits credits;
-
+public String toString(){
+    return ("id =" + id + " title = " + title +" runtime= " + runtime);
+}
     public String getLogoUrl() {
         return logoUrl;
     }
@@ -69,7 +71,10 @@ public class MovieView {
     public void setYoutubeKey(Result youtubeKey) {
         this.youtubeKey = youtubeKey.getKey();
     }
-
+    public void setYoutubeKey(String youtubeKey, String consoleMessage) {
+        this.youtubeKey = youtubeKey;
+        System.out.println(consoleMessage);
+    }
     public List<Genre> getGenres() {
         return genres;
     }
