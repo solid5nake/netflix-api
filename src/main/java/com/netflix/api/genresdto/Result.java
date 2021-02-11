@@ -24,4 +24,7 @@ public class Result {
         this.id = id;
     }
 
+    public String toString(){
+        return id.toString();
+    }
 }
