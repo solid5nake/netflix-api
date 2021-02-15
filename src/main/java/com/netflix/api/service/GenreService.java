@@ -29,7 +29,6 @@ public class GenreService {
 
     private String language = "en-US";
 
-    private Integer page = 2;
     private List<MovieView> listOf40GenreMovieViews = new ArrayList<>();
     ;
 
@@ -95,12 +94,7 @@ public class GenreService {
         MovieView movieView = new MovieView();
 
         for (int i = 0; i < total40movies.size(); i++) {
-//            try {
-//                movieView = service.getBannerMovie(total40movies.get(i).toString());
-//            } catch (Exception e) {
-//                i++;
-//                movieView = service.getBannerMovie(total40movies.get(i).toString());
-//            }
+//
             movieView = service.getBannerMovie(total40movies.get(i).toString());
             listOf40GenreMovieViews.add(movieView);
             if(listOf40GenreMovieViews.size()==40){
