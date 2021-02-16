@@ -29,7 +29,7 @@ public class GenreService {
 
     private String language = "en-US";
 
-    private List<MovieView> listOf40GenreMovieViews = new ArrayList<>();
+
     ;
 
     enum Element {
@@ -92,7 +92,7 @@ public class GenreService {
         List<Result> total40movies = new ArrayList<>();
         Stream.of(first20Movies.getResults(), second20Movies.getResults()).forEach(total40movies::addAll);
         MovieView movieView = new MovieView();
-
+         List<MovieView> listOf40GenreMovieViews = new ArrayList<>();
         for (int i = 0; i < total40movies.size(); i++) {
 //
             movieView = service.getBannerMovie(total40movies.get(i).toString());
