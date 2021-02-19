@@ -21,6 +21,7 @@ public class MovieController {
         return service.getBannerMovie(movieId);
     }
 
+    @CrossOrigin
     @GetMapping("/movies/genres")
     public Object getGenreMovies(@RequestParam(value = "with_genres", required = false) String genre,
                                  @RequestParam(value = "language", required = false) String language,
