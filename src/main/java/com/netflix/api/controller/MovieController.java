@@ -39,11 +39,11 @@ public class MovieController {
         if (genre != null)
             return genreService.getMovieViewsByGenre(genre);
         else if (cast != null)
-            return genreService.getMoviesByCast(cast);
+            return genreService.getMovieViewsByCast(cast);
         else if (company != null)
-            return genreService.getMoviesByCompany(company);
+            return genreService.getMovieViewsByCompany(company);
         else if (decade != null) {
-            return genreService.getMoviesByDecade(decade);
+            return genreService.getMovieViewsByDecade(decade);
         } else
             return new GenreID();
     }

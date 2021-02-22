@@ -76,7 +76,7 @@ public class GenreService {
         return listOf40GenreMovieViews;
     }
 
-    public List<MovieView> getMoviesByCompany(Company company) {
+    public List<MovieView> getMovieViewsByCompany(Company company) {
         return switch (company) {
             case LUCAS_FILM -> get40MoviesByCompany(LUCAS_FILM.getId());
             case DISNEY -> get40MoviesByCompany(DISNEY.getId());
@@ -106,7 +106,7 @@ public class GenreService {
         return listOf40GenreMovieViews;
     }
 
-    public List<MovieView> getMoviesByCast(Cast cast) {
+    public List<MovieView> getMovieViewsByCast(Cast cast) {
         return switch (cast) {
             case TOM_CRUISE -> get40MoviesByCast(TOM_CRUISE.getId());
             case ROBERT_DE_NIRO -> get40MoviesByCast(ROBERT_DE_NIRO.getId());
@@ -135,7 +135,7 @@ public class GenreService {
         return listOf40GenreMovieViews;
     }
 
-    public List<Result> getMoviesByDecade(Decade decade) {
+    public List<Result> getMovieViewsByDecade(Decade decade) {
         return switch (decade) {
             case EIGHTIES -> get40MoviesByDecade(EIGHTIES.getEarliestDate(), EIGHTIES.getLatestDate());
             case NINETIES -> get40MoviesByDecade(NINETIES.getEarliestDate(), NINETIES.getLatestDate());
