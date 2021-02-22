@@ -135,7 +135,7 @@ public class GenreService {
         return listOf40GenreMovieViews;
     }
 
-    public List<Result> getMovieViewsByDecade(Decade decade) {
+    public List<MovieView> getMovieViewsByDecade(Decade decade) {
         return switch (decade) {
             case EIGHTIES -> get40MoviesByDecade(EIGHTIES.getEarliestDate(), EIGHTIES.getLatestDate());
             case NINETIES -> get40MoviesByDecade(NINETIES.getEarliestDate(), NINETIES.getLatestDate());
@@ -145,11 +145,22 @@ public class GenreService {
         };
     }
 
-    private List<Result> get40MoviesByDecade(String earliestDate, String latestDate) {
+    private List<MovieView> get40MoviesByDecade(String earliestDate, String latestDate) {
         GenreID first20Movies = client.getMoviesByDecade(tmdbApiKey, 1, language, earliestDate, latestDate);
         GenreID second20Movies = client.getMoviesByDecade(tmdbApiKey, 2, language, earliestDate, latestDate);
         List<Result> total40movies = new ArrayList<>();
         Stream.of(first20Movies.getResults(), second20Movies.getResults()).forEach(total40movies::addAll);
-        return total40movies;
+        MovieView movieView = new MovieView();
+
+        List<MovieView> listOf40GenreMovieViews = new ArrayList<>();
+
+        for (int i = 0; i < total40movies.size(); i++) {
+            movieView = service.getBannerMovie(total40movies.get(i).toString());
+            listOf40GenreMovieViews.add(movieView);
+            if(listOf40GenreMovieViews.size()==40){
+                break;
+            }
+        }
+        return listOf40GenreMovieViews;
     }
 }
