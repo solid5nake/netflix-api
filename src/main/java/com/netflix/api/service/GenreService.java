@@ -1,23 +1,31 @@
 package com.netflix.api.service;
 
+import com.netflix.api.enums.Cast;
+import com.netflix.api.enums.Company;
+import com.netflix.api.enums.Decade;
+import com.netflix.api.enums.Genre;
 import com.netflix.api.client.MovieClient;
-import com.netflix.api.genresdto.Result;
 import com.netflix.api.genresdto.GenreID;
+import com.netflix.api.genresdto.Result;
 import com.netflix.api.view.MovieView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
+
+import static com.netflix.api.enums.Cast.*;
+import static com.netflix.api.enums.Company.*;
+import static com.netflix.api.enums.Decade.*;
+import static com.netflix.api.enums.Genre.*;
 
 @Service
 public class GenreService {
 
     @Autowired
-    private MovieClient genreClient;
+    private MovieClient client;
     @Autowired
     private MovieService service;
 
@@ -29,73 +37,38 @@ public class GenreService {
 
     private String language = "en-US";
 
-    private List<MovieView> listOf40GenreMovieViews = new ArrayList<>();
-    ;
-
-    enum Element {
-        H("Hydrogen"),
-        HE("Helium"),
-        NE("Neon");
-        public final String ID;
-
-        private Element(String ID) {
-            this.ID = ID;
-        }
-    }
-
-    //public static Element valueOfLabel(String ID) {
-//    for (Element e : values()) {
-//        if (e.ID.equals(ID)) {
-//            return e;
-//        }
+//    private List<Result> get40MoviesByGenre(String genreNumberTMDB) {
+//        GenreID first20Movies = client.getMoviesByGenre(tmdbApiKey, 1, genreNumberTMDB, language);
+//        GenreID second20Movies = client.getMoviesByGenre(tmdbApiKey, 2, genreNumberTMDB, language);
+//        List<Result> total40movies = new ArrayList<>();
+//        Stream.of(first20Movies.getResults(), second20Movies.getResults()).forEach(total40movies::addAll);
+//        return total40movies;
 //    }
-//    return null;
-//}
-    public List<Result> getMoviesByGenre(String genre) {
-        return switch (genre.toLowerCase()) {
-            case "comedy" -> get40MoviesByGenre("35");
-            case "action" -> get40MoviesByGenre("28");
-            case "thriller" -> get40MoviesByGenre("53");
-            case "family" -> get40MoviesByGenre("10751");
-            case "fantasy" -> get40MoviesByGenre("14");
-            case "crime" -> get40MoviesByGenre("80");
-            case "adventure" -> get40MoviesByGenre("12");
-            default -> throw new IllegalStateException("Unexpected value: " + genre);
-        };
-    }
 
-    private List<Result> get40MoviesByGenre(String genreNumberTMDB) {
-        GenreID first20Movies = genreClient.getMoviesByGenre(tmdbApiKey, 1, genreNumberTMDB, language);
-        GenreID second20Movies = genreClient.getMoviesByGenre(tmdbApiKey, 2, genreNumberTMDB, language);
-        List<Result> total40movies = new ArrayList<>();
-        Stream.of(first20Movies.getResults(), second20Movies.getResults()).forEach(total40movies::addAll);
-        return total40movies;
-    }
-
-
-    public List<MovieView> get40MovieViewsByGenres(String genre) {
-        return switch (genre.toLowerCase()) {
-            case "comedy" -> get40MovieViewsByGenre("35");
-            case "family" -> get40MovieViewsByGenre("10751");
-            case "action" -> get40MovieViewsByGenre("28");
-            case "thriller" -> get40MovieViewsByGenre("53");
-            case "fantasy" -> get40MovieViewsByGenre("14");
-            case "crime" -> get40MovieViewsByGenre("80");
-            case "adventure" -> get40MovieViewsByGenre("12");
+    public List<MovieView> get40MovieViewsByGenres(Genre genre) {
+        return switch (genre) {
+            case COMEDY -> get40MovieViewsByGenre(COMEDY.getId());
+            case FAMILY -> get40MovieViewsByGenre(FAMILY.getId());
+            case ACTION -> get40MovieViewsByGenre(ACTION.getId());
+            case THRILLER -> get40MovieViewsByGenre(THRILLER.getId());
+            case FANTASY -> get40MovieViewsByGenre(FANTASY.getId());
+            case CRIME -> get40MovieViewsByGenre(CRIME.getId());
+            case ADVENTURE -> get40MovieViewsByGenre(ADVENTURE.getId());
             default -> throw new IllegalStateException("Unexpected value: " + genre);
         };
     }
 
     private List<MovieView> get40MovieViewsByGenre(String genreNumberTMDB) {
-        GenreID first20Movies = genreClient.getMoviesByGenre(tmdbApiKey, 1, genreNumberTMDB, language);
-        GenreID second20Movies = genreClient.getMoviesByGenre(tmdbApiKey, 2, genreNumberTMDB, language);
-        List<Result> total40movies = new ArrayList<>();
-        Stream.of(first20Movies.getResults(), second20Movies.getResults()).forEach(total40movies::addAll);
+        GenreID firstPage = client.getMoviesByGenre(tmdbApiKey, 1, genreNumberTMDB, language);
+        GenreID secondPage = client.getMoviesByGenre(tmdbApiKey, 2, genreNumberTMDB, language);
+        List<Result> totalMovies = new ArrayList<>();
+        Stream.of(firstPage.getResults(), secondPage.getResults()).forEach(totalMovies::addAll);
         MovieView movieView = new MovieView();
 
-        for (int i = 0; i < total40movies.size(); i++) {
-//
-            movieView = service.getBannerMovie(total40movies.get(i).toString());
+        List<MovieView> listOf40GenreMovieViews = new ArrayList<>();
+
+        for (int i = 0; i < totalMovies.size(); i++) {
+            movieView = service.getBannerMovie(totalMovies.get(i).toString());
             listOf40GenreMovieViews.add(movieView);
             if(listOf40GenreMovieViews.size()==40){
                 break;
@@ -104,56 +77,56 @@ public class GenreService {
         return listOf40GenreMovieViews;
     }
 
-
-    public List<Result> getMoviesByCompany(String company) {
-        return switch (company.toLowerCase()) {
-            case "lucasfilm" -> get40MoviesByCompany("1");
-            case "disney" -> get40MoviesByCompany("2");
-            case "pixar" -> get40MoviesByCompany("3");
-            case "newlinecinema" -> get40MoviesByCompany("12");
+    public List<Result> getMoviesByCompany(Company company) {
+        return switch (company) {
+            case LUCAS_FILM -> get40MoviesByCompany(LUCAS_FILM.getId());
+            case DISNEY -> get40MoviesByCompany(DISNEY.getId());
+            case PIXAR -> get40MoviesByCompany(PIXAR.getId());
+            case NEW_LINE_CINEMA -> get40MoviesByCompany(NEW_LINE_CINEMA.getId());
+            case WARNER_BROS_ENTERTAINMENT_US -> get40MoviesByCompany(WARNER_BROS_ENTERTAINMENT_US.getId());
             default -> throw new IllegalStateException("Unexpected value: " + company);
         };
     }
 
     private List<Result> get40MoviesByCompany(String companyNumberTMDB) {
-        GenreID first20Movies = genreClient.getMoviesByCompany(tmdbApiKey, 1, companyNumberTMDB, language);
-        GenreID second20Movies = genreClient.getMoviesByCompany(tmdbApiKey, 2, companyNumberTMDB, language);
+        GenreID first20Movies = client.getMoviesByCompany(tmdbApiKey, 1, companyNumberTMDB, language);
+        GenreID second20Movies = client.getMoviesByCompany(tmdbApiKey, 2, companyNumberTMDB, language);
         List<Result> total40movies = new ArrayList<>();
         Stream.of(first20Movies.getResults(), second20Movies.getResults()).forEach(total40movies::addAll);
         return total40movies;
     }
 
-    public List<Result> getMoviesByCast(String cast) {
-        return switch (cast.toLowerCase()) {
-            case "tomcruise" -> get40MoviesByCast("500");
-            case "robertdeniro" -> get40MoviesByCast("380");
-            case "alpacino" -> get40MoviesByCast("1158");
+    public List<Result> getMoviesByCast(Cast cast) {
+        return switch (cast) {
+            case TOM_CRUISE -> get40MoviesByCast(TOM_CRUISE.getId());
+            case ROBERT_DE_NIRO -> get40MoviesByCast(ROBERT_DE_NIRO.getId());
+            case AL_PACINO -> get40MoviesByCast(AL_PACINO.getId());
 
             default -> throw new IllegalStateException("Unexpected value: " + cast);
         };
     }
 
     private List<Result> get40MoviesByCast(String castNumberTMDB) {
-        GenreID first20Movies = genreClient.getMoviesByCast(tmdbApiKey, 1, castNumberTMDB, language);
-        GenreID second20Movies = genreClient.getMoviesByCast(tmdbApiKey, 2, castNumberTMDB, language);
+        GenreID first20Movies = client.getMoviesByCast(tmdbApiKey, 1, castNumberTMDB, language);
+        GenreID second20Movies = client.getMoviesByCast(tmdbApiKey, 2, castNumberTMDB, language);
         List<Result> total40movies = new ArrayList<>();
         Stream.of(first20Movies.getResults(), second20Movies.getResults()).forEach(total40movies::addAll);
         return total40movies;
     }
 
-    public List<Result> getMoviesByDecade(String decade) {
-        return switch (decade.toLowerCase()) {
-            case "80" -> get40MoviesByDecade("1980-01-01", "1989-12-31");
-            case "90" -> get40MoviesByDecade("1990-01-01", "1999-12-31");
-            case "00" -> get40MoviesByDecade("2000-01-01", "2009-12-31");
+    public List<Result> getMoviesByDecade(Decade decade) {
+        return switch (decade) {
+            case EIGHTIES -> get40MoviesByDecade(EIGHTIES.getEarliestDate(), EIGHTIES.getLatestDate());
+            case NINETIES -> get40MoviesByDecade(NINETIES.getEarliestDate(), NINETIES.getLatestDate());
+            case NOUGHTIES -> get40MoviesByDecade(NOUGHTIES.getEarliestDate(), NOUGHTIES.getLatestDate());
 
             default -> throw new IllegalStateException("Unexpected value: " + decade);
         };
     }
 
     private List<Result> get40MoviesByDecade(String earliestDate, String latestDate) {
-        GenreID first20Movies = genreClient.getMoviesByDecade(tmdbApiKey, 1, language, earliestDate, latestDate);
-        GenreID second20Movies = genreClient.getMoviesByDecade(tmdbApiKey, 2, language, earliestDate, latestDate);
+        GenreID first20Movies = client.getMoviesByDecade(tmdbApiKey, 1, language, earliestDate, latestDate);
+        GenreID second20Movies = client.getMoviesByDecade(tmdbApiKey, 2, language, earliestDate, latestDate);
         List<Result> total40movies = new ArrayList<>();
         Stream.of(first20Movies.getResults(), second20Movies.getResults()).forEach(total40movies::addAll);
         return total40movies;
