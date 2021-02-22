@@ -1,5 +1,9 @@
 package com.netflix.api.controller;
 
+import com.netflix.api.enums.Cast;
+import com.netflix.api.enums.Decade;
+import com.netflix.api.enums.Genre;
+import com.netflix.api.enums.Company;
 import com.netflix.api.genresdto.GenreID;
 import com.netflix.api.service.GenreService;
 import com.netflix.api.service.MovieService;
@@ -23,11 +27,11 @@ public class MovieController {
 
     @CrossOrigin
     @GetMapping("/movies/genres")
-    public Object getGenreMovies(@RequestParam(value = "with_genres", required = false) String genre,
+    public Object getGenreMovies(@RequestParam(value = "with_genres", required = false) Genre genre,
                                  @RequestParam(value = "language", required = false) String language,
-                                 @RequestParam(value = "with_cast", required = false) String cast,
-                                 @RequestParam(value = "with_company", required = false) String company,
-                                 @RequestParam(value = "with_decade", required = false) String decade
+                                 @RequestParam(value = "with_cast", required = false) Cast cast,
+                                 @RequestParam(value = "with_company", required = false) Company company,
+                                 @RequestParam(value = "with_decade", required = false) Decade decade
     ) {
 //        v returns 40 movie ids or 40 movie views, only switch on the appropriate one
 //        if (genre != null)
