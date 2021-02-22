@@ -97,10 +97,10 @@ public class MovieService {
         if(listForYoutubeKey.size()>0)
             view.setYoutubeKey(listForYoutubeKey.get(0));
         else
-        view.setYoutubeKey("dQw4w9WgXcQ", "key not found");
-        System.out.println(view);
+            view.setYoutubeKey("dQw4w9WgXcQ", "key not found");
+            System.out.println(view);
 //        view.setCredits(movie.getCredits());
-        view.setDirector(movie.getCredits());
+            view.setDirector(movie.getCredits());
 //        List<Crew> listOfCrewForDirector = movie.getCredits().getCrew();
 //        if(listOfCrewForDirector)
 //        System.out.println(listOfCrewForDirector);
