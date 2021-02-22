@@ -30,8 +30,6 @@ public class MovieLogoDto {
         } catch (Exception e) {
             //           this returns the logo for all is lost
             return "https://assets.fanart.tv/fanart/movies/152747/hdmovielogo/all-is-lost-526338003f164.png";
-            //           return "logo not found";
-
         }
     }
 
@@ -43,7 +41,6 @@ public class MovieLogoDto {
        }catch (Exception e){
            //            this returns the moviethumb for all is lost
            return "https://assets.fanart.tv/fanart/movies/152747/moviethumb/all-is-lost-52f5aefbc7be3.jpg";
-//           return "moviethumb not found";
        }
     }
 
