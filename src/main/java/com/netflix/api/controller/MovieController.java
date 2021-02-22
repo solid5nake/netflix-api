@@ -33,9 +33,6 @@ public class MovieController {
                                  @RequestParam(value = "with_company", required = false) Company company,
                                  @RequestParam(value = "with_decade", required = false) Decade decade
     ) {
-//        v returns 40 movie ids or 40 movie views, only switch on the appropriate one
-//        if (genre != null)
-//            return genreService.getMoviesByGenre(genre);
         if (genre != null)
             return genreService.getMovieViewsByGenre(genre);
         else if (cast != null)

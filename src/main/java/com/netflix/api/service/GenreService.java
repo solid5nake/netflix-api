@@ -37,13 +37,6 @@ public class GenreService {
 
     private String language = "en-US";
 
-//    private List<Result> get40MoviesByGenre(String genreNumberTMDB) {
-//        GenreID first20Movies = client.getMoviesByGenre(tmdbApiKey, 1, genreNumberTMDB, language);
-//        GenreID second20Movies = client.getMoviesByGenre(tmdbApiKey, 2, genreNumberTMDB, language);
-//        List<Result> total40movies = new ArrayList<>();
-//        Stream.of(first20Movies.getResults(), second20Movies.getResults()).forEach(total40movies::addAll);
-//        return total40movies;
-
     public List<MovieView> getMovieViewsByGenre(Genre genre) {
         return switch (genre) {
             case COMEDY -> get40MovieViewsByGenre(COMEDY.getId());
@@ -60,6 +53,7 @@ public class GenreService {
     private List<MovieView> get40MovieViewsByGenre(String genreNumberTMDB) {
         GenreID firstPage = client.getMoviesByGenre(tmdbApiKey, 1, genreNumberTMDB, language);
         GenreID secondPage = client.getMoviesByGenre(tmdbApiKey, 2, genreNumberTMDB, language);
+
         List<Result> totalMovies = new ArrayList<>();
         Stream.of(firstPage.getResults(), secondPage.getResults()).forEach(totalMovies::addAll);
         MovieView movieView = new MovieView();
@@ -146,10 +140,10 @@ public class GenreService {
     }
 
     private List<MovieView> get40MoviesByDecade(String earliestDate, String latestDate) {
-        GenreID first20Movies = client.getMoviesByDecade(tmdbApiKey, 1, language, earliestDate, latestDate);
-        GenreID second20Movies = client.getMoviesByDecade(tmdbApiKey, 2, language, earliestDate, latestDate);
+        GenreID firstPage = client.getMoviesByDecade(tmdbApiKey, 1, language, earliestDate, latestDate);
+        GenreID secondPage = client.getMoviesByDecade(tmdbApiKey, 2, language, earliestDate, latestDate);
         List<Result> total40movies = new ArrayList<>();
-        Stream.of(first20Movies.getResults(), second20Movies.getResults()).forEach(total40movies::addAll);
+        Stream.of(firstPage.getResults(), secondPage.getResults()).forEach(total40movies::addAll);
         MovieView movieView = new MovieView();
 
         List<MovieView> listOf40GenreMovieViews = new ArrayList<>();
