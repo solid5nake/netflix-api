@@ -106,7 +106,7 @@ public class GenreService {
         return listOf40GenreMovieViews;
     }
 
-    public List<Result> getMoviesByCast(Cast cast) {
+    public List<MovieView> getMoviesByCast(Cast cast) {
         return switch (cast) {
             case TOM_CRUISE -> get40MoviesByCast(TOM_CRUISE.getId());
             case ROBERT_DE_NIRO -> get40MoviesByCast(ROBERT_DE_NIRO.getId());
@@ -116,12 +116,23 @@ public class GenreService {
         };
     }
 
-    private List<Result> get40MoviesByCast(String castNumberTMDB) {
-        GenreID first20Movies = client.getMoviesByCast(tmdbApiKey, 1, castNumberTMDB, language);
-        GenreID second20Movies = client.getMoviesByCast(tmdbApiKey, 2, castNumberTMDB, language);
-        List<Result> total40movies = new ArrayList<>();
-        Stream.of(first20Movies.getResults(), second20Movies.getResults()).forEach(total40movies::addAll);
-        return total40movies;
+    private List<MovieView> get40MoviesByCast(String tmdbCastId) {
+        GenreID firstPage = client.getMoviesByCast(tmdbApiKey, 1, tmdbCastId, language);
+        GenreID secondPage = client.getMoviesByCast(tmdbApiKey, 2, tmdbCastId, language);
+        List<Result> totalMovies = new ArrayList<>();
+        Stream.of(firstPage.getResults(), secondPage.getResults()).forEach(totalMovies::addAll);
+        MovieView movieView = new MovieView();
+
+        List<MovieView> listOf40GenreMovieViews = new ArrayList<>();
+
+        for (int i = 0; i < totalMovies.size(); i++) {
+            movieView = service.getBannerMovie(totalMovies.get(i).toString());
+            listOf40GenreMovieViews.add(movieView);
+            if(listOf40GenreMovieViews.size()==40){
+                break;
+            }
+        }
+        return listOf40GenreMovieViews;
     }
 
     public List<Result> getMoviesByDecade(Decade decade) {
