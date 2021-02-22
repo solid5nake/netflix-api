@@ -37,7 +37,7 @@ public class MovieController {
 //        if (genre != null)
 //            return genreService.getMoviesByGenre(genre);
         if (genre != null)
-            return genreService.get40MovieViewsByGenres(genre);
+            return genreService.getMovieViewsByGenre(genre);
         else if (cast != null)
             return genreService.getMoviesByCast(cast);
         else if (company != null)
