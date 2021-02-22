@@ -43,6 +43,13 @@ public class GenreService {
 //        List<Result> total40movies = new ArrayList<>();
 //        Stream.of(first20Movies.getResults(), second20Movies.getResults()).forEach(total40movies::addAll);
 //        return total40movies;
+    }
+
+    //public static Element valueOfLabel(String ID) {
+//    for (Element e : values()) {
+//        if (e.ID.equals(ID)) {
+//            return e;
+//        }
 //    }
 
     public List<MovieView> get40MovieViewsByGenres(Genre genre) {
