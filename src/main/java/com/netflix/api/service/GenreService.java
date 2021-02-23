@@ -53,17 +53,18 @@ public class GenreService {
     private List<MovieView> get40MovieViewsByGenre(String genreNumberTMDB) {
         GenreID firstPage = client.getMoviesByGenre(tmdbApiKey, 1, genreNumberTMDB, language);
         GenreID secondPage = client.getMoviesByGenre(tmdbApiKey, 2, genreNumberTMDB, language);
+        return loopListOfIDAndGetMovieViews(firstPage, secondPage);
+    }
 
+    private List<MovieView> loopListOfIDAndGetMovieViews(GenreID firstPage, GenreID secondPage) {
         List<Result> totalMovies = new ArrayList<>();
         Stream.of(firstPage.getResults(), secondPage.getResults()).forEach(totalMovies::addAll);
         MovieView movieView = new MovieView();
-
         List<MovieView> listOf40GenreMovieViews = new ArrayList<>();
-
-        for (int i = 0; i < totalMovies.size(); i++) {
-            movieView = service.getBannerMovie(totalMovies.get(i).toString());
+        for (Result totalMovie : totalMovies) {
+            movieView = service.getBannerMovie(totalMovie.toString());
             listOf40GenreMovieViews.add(movieView);
-            if(listOf40GenreMovieViews.size()==40){
+            if (listOf40GenreMovieViews.size() == 40) {
                 break;
             }
         }
@@ -84,20 +85,7 @@ public class GenreService {
     private List<MovieView> get40MoviesByCompany(String companyNumberTMDB) {
         GenreID firstPage = client.getMoviesByCompany(tmdbApiKey, 1, companyNumberTMDB, language);
         GenreID secondPage = client.getMoviesByCompany(tmdbApiKey, 2, companyNumberTMDB, language);
-        List<Result> totalMovies = new ArrayList<>();
-        Stream.of(firstPage.getResults(), secondPage.getResults()).forEach(totalMovies::addAll);
-        MovieView movieView = new MovieView();
-
-        List<MovieView> listOf40GenreMovieViews = new ArrayList<>();
-
-        for (int i = 0; i < totalMovies.size(); i++) {
-            movieView = service.getBannerMovie(totalMovies.get(i).toString());
-            listOf40GenreMovieViews.add(movieView);
-            if(listOf40GenreMovieViews.size()==40){
-                break;
-            }
-        }
-        return listOf40GenreMovieViews;
+        return loopListOfIDAndGetMovieViews(firstPage, secondPage);
     }
 
     public List<MovieView> getMovieViewsByCast(Cast cast) {
@@ -105,7 +93,6 @@ public class GenreService {
             case TOM_CRUISE -> get40MoviesByCast(TOM_CRUISE.getId());
             case ROBERT_DE_NIRO -> get40MoviesByCast(ROBERT_DE_NIRO.getId());
             case AL_PACINO -> get40MoviesByCast(AL_PACINO.getId());
-
             default -> throw new IllegalStateException("Unexpected value: " + cast);
         };
     }
@@ -113,20 +100,7 @@ public class GenreService {
     private List<MovieView> get40MoviesByCast(String tmdbCastId) {
         GenreID firstPage = client.getMoviesByCast(tmdbApiKey, 1, tmdbCastId, language);
         GenreID secondPage = client.getMoviesByCast(tmdbApiKey, 2, tmdbCastId, language);
-        List<Result> totalMovies = new ArrayList<>();
-        Stream.of(firstPage.getResults(), secondPage.getResults()).forEach(totalMovies::addAll);
-        MovieView movieView = new MovieView();
-
-        List<MovieView> listOf40GenreMovieViews = new ArrayList<>();
-
-        for (int i = 0; i < totalMovies.size(); i++) {
-            movieView = service.getBannerMovie(totalMovies.get(i).toString());
-            listOf40GenreMovieViews.add(movieView);
-            if(listOf40GenreMovieViews.size()==40){
-                break;
-            }
-        }
-        return listOf40GenreMovieViews;
+        return loopListOfIDAndGetMovieViews(firstPage, secondPage);
     }
 
     public List<MovieView> getMovieViewsByDecade(Decade decade) {
@@ -134,7 +108,6 @@ public class GenreService {
             case EIGHTIES -> get40MoviesByDecade(EIGHTIES.getEarliestDate(), EIGHTIES.getLatestDate());
             case NINETIES -> get40MoviesByDecade(NINETIES.getEarliestDate(), NINETIES.getLatestDate());
             case NOUGHTIES -> get40MoviesByDecade(NOUGHTIES.getEarliestDate(), NOUGHTIES.getLatestDate());
-
             default -> throw new IllegalStateException("Unexpected value: " + decade);
         };
     }
@@ -142,19 +115,6 @@ public class GenreService {
     private List<MovieView> get40MoviesByDecade(String earliestDate, String latestDate) {
         GenreID firstPage = client.getMoviesByDecade(tmdbApiKey, 1, language, earliestDate, latestDate);
         GenreID secondPage = client.getMoviesByDecade(tmdbApiKey, 2, language, earliestDate, latestDate);
-        List<Result> total40movies = new ArrayList<>();
-        Stream.of(firstPage.getResults(), secondPage.getResults()).forEach(total40movies::addAll);
-        MovieView movieView = new MovieView();
-
-        List<MovieView> listOf40GenreMovieViews = new ArrayList<>();
-
-        for (int i = 0; i < total40movies.size(); i++) {
-            movieView = service.getBannerMovie(total40movies.get(i).toString());
-            listOf40GenreMovieViews.add(movieView);
-            if(listOf40GenreMovieViews.size()==40){
-                break;
-            }
-        }
-        return listOf40GenreMovieViews;
+        return loopListOfIDAndGetMovieViews(firstPage, secondPage);
     }
 }
