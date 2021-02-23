@@ -32,10 +32,10 @@ public class GenreService {
     @Value("${tmdb.api_key}")
     private String tmdbApiKey;
 
-    @Value("${fanart.api_key}")
-    private String fanartApiKey;
-
-    private String language = "en-US";
+//    @Value("${fanart.api_key}")
+//    private String fanartApiKey;
+@Value("${languageTMDB}")
+    private String language;
 
     public List<MovieView> getMovieViewsByGenre(Genre genre) {
         return switch (genre) {
