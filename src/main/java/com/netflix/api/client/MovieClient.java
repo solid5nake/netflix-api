@@ -1,6 +1,7 @@
 package com.netflix.api.client;
 
 import com.netflix.api.dto.MovieDetailsDto;
+import com.netflix.api.searchdto.SearchActorDTO;
 import com.netflix.api.genresdto.GenreID;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,5 +46,9 @@ public interface MovieClient {
                                    @RequestParam(value = "language") String language,
                                    @RequestParam(value = "primary_release_date.gte") String startDate,
                                    @RequestParam(value = "primary_release_date.lte") String endDate
+  );
+  @GetMapping("/search/person")
+  public SearchActorDTO getPerson(@RequestParam(value = "api_key") String apiKey,
+                                        @RequestParam(value = "query") String person
   );
 }
