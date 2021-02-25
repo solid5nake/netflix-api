@@ -97,7 +97,7 @@ public class MovieService {
         if(listForYoutubeKey.size()>0)
             view.setYoutubeKey(listForYoutubeKey.get(0));
         else
-            view.setYoutubeKey("dQw4w9WgXcQ", "key not found");
+            view.setYoutubeKey("dQw4w9WgXcQ");
             System.out.println(view);
 //        view.setCredits(movie.getCredits());
             view.setDirector(movie.getCredits());
