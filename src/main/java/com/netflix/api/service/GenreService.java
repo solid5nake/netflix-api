@@ -95,21 +95,17 @@ public class GenreService {
     }
 
     public List<MovieView> getMovieViewsByCompany(Company company) {
-        return switch (company) {
-            case LUCAS_FILM -> get40MoviesByCompany(LUCAS_FILM.getId());
-            case DISNEY -> get40MoviesByCompany(DISNEY.getId());
-            case PIXAR -> get40MoviesByCompany(PIXAR.getId());
-            case NEW_LINE_CINEMA -> get40MoviesByCompany(NEW_LINE_CINEMA.getId());
-            case WARNER_BROS_ENTERTAINMENT_US -> get40MoviesByCompany(WARNER_BROS_ENTERTAINMENT_US.getId());
-            default -> throw new IllegalStateException("Unexpected value: " + company);
-        };
-    }
+        Company[] companyArray = new Company[]{LUCAS_FILM, DISNEY, PIXAR, NEW_LINE_CINEMA, WARNER_BROS_ENTERTAINMENT_US};
+        List<Company> companyList = new ArrayList<>(Arrays.asList(companyArray));
+        if (companyList.contains(company)) {
+            Function<Integer, GenreID> lambda = (page) -> {
+                return client.getMoviesByCompany(tmdbApiKey, page, company.getId(), language);
+            };
+            return getMovieViewsByLambda(lambda, 40);
+        }
 
-    private List<MovieView> get40MoviesByCompany(String companyNumberTMDB) {
-        GenreID firstPage = client.getMoviesByCompany(tmdbApiKey, 1, companyNumberTMDB, language);
-        GenreID secondPage = client.getMoviesByCompany(tmdbApiKey, 2, companyNumberTMDB, language);
-        return loopListOfIDAndGetMovieViews(firstPage, secondPage);
-    }
+        throw new IllegalStateException("Unexpected value: " + company);
+    };
 
     public List<MovieView> getMovieViewsByCast(Cast cast) {
         return switch (cast) {
