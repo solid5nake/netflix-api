@@ -113,7 +113,7 @@ public class GenreService {
         };
     }
 
-    private List<MovieView> get40MoviesByCast(String tmdbCastId) {
+    public List<MovieView> get40MoviesByCast(String tmdbCastId) {
         GenreID firstPage = client.getMoviesByCast(tmdbApiKey, 1, tmdbCastId, language);
         GenreID secondPage = client.getMoviesByCast(tmdbApiKey, 2, tmdbCastId, language);
         return loopListOfIDAndGetMovieViews(firstPage, secondPage);
