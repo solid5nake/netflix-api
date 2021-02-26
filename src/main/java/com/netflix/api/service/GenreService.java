@@ -1,10 +1,10 @@
 package com.netflix.api.service;
 
+import com.netflix.api.client.MovieClient;
 import com.netflix.api.enums.Cast;
 import com.netflix.api.enums.Company;
 import com.netflix.api.enums.Decade;
 import com.netflix.api.enums.Genre;
-import com.netflix.api.client.MovieClient;
 import com.netflix.api.genresdto.GenreID;
 import com.netflix.api.genresdto.Result;
 import com.netflix.api.view.MovieView;
@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import static com.netflix.api.enums.Cast.*;
@@ -43,29 +44,35 @@ public class GenreService {
         List<Genre> genreList = new ArrayList<>(Arrays.asList(genreArray));
 
         if (genreList.contains(genre)) {
-            return getMovieViewsByGenre(genre.getId(), 40);
+            Function<Integer, GenreID> lambda = (page) -> {
+                System.out.println("Sushi!!!");
+                return client.getMoviesByGenre(tmdbApiKey, page, genre.getId(), language);
+            };
+            return getMovieViewsByLambda(lambda, 40);
         }
 
         throw new IllegalStateException("Unexpected value: " + genre);
     }
 
-    private List<MovieView> getMovieViewsByGenre(String genreNumberTMDB, Integer length) {
+    private List<MovieView> getMovieViewsByLambda(Function<Integer, GenreID> lambda, Integer length) {
         List<MovieView> movieViews = new ArrayList<>();
-        List<Result> movies = getMoviesByGenre(genreNumberTMDB, length);
+        List<Result> movies = getMoviesByLambda(lambda, length);
+
         movies.forEach((movie) -> {
             MovieView movieView = service.getBannerMovie(movie.toString());
             movieViews.add(movieView);
         });
+
         return movieViews;
     }
 
-    private List<Result> getMoviesByGenre(String genreNumberTMDB, Integer length) {
+    private List<Result> getMoviesByLambda(Function<Integer, GenreID> lambda, Integer length) {
         List<Result> movies = new ArrayList<>();
         Integer page = 1;
         Integer oldSize = -1;
         while ((movies.size() < length) && (movies.size() != oldSize)) {
             oldSize = movies.size();
-            GenreID moviesPage = client.getMoviesByGenre(tmdbApiKey, page, genreNumberTMDB, language);
+            GenreID moviesPage = lambda.apply(page);
             movies.addAll(moviesPage.getResults());
             page++;
         }
