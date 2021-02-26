@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -32,28 +33,43 @@ public class GenreService {
     @Value("${tmdb.api_key}")
     private String tmdbApiKey;
 
-//    @Value("${fanart.api_key}")
+    //    @Value("${fanart.api_key}")
 //    private String fanartApiKey;
-@Value("${languageTMDB}")
+    @Value("${languageTMDB}")
     private String language;
 
     public List<MovieView> getMovieViewsByGenre(Genre genre) {
-        return switch (genre) {
-            case COMEDY -> get40MovieViewsByGenre(COMEDY.getId());
-            case FAMILY -> get40MovieViewsByGenre(FAMILY.getId());
-            case ACTION -> get40MovieViewsByGenre(ACTION.getId());
-            case THRILLER -> get40MovieViewsByGenre(THRILLER.getId());
-            case FANTASY -> get40MovieViewsByGenre(FANTASY.getId());
-            case CRIME -> get40MovieViewsByGenre(CRIME.getId());
-            case ADVENTURE -> get40MovieViewsByGenre(ADVENTURE.getId());
-            default -> throw new IllegalStateException("Unexpected value: " + genre);
-        };
+        Genre[] genreArray = new Genre[]{COMEDY, FAMILY, ACTION, THRILLER, FANTASY, CRIME, ADVENTURE};
+        List<Genre> genreList = new ArrayList<>(Arrays.asList(genreArray));
+
+        if (genreList.contains(genre)) {
+            return getMovieViewsByGenre(genre.getId(), 40);
+        }
+
+        throw new IllegalStateException("Unexpected value: " + genre);
     }
 
-    private List<MovieView> get40MovieViewsByGenre(String genreNumberTMDB) {
-        GenreID firstPage = client.getMoviesByGenre(tmdbApiKey, 1, genreNumberTMDB, language);
-        GenreID secondPage = client.getMoviesByGenre(tmdbApiKey, 2, genreNumberTMDB, language);
-        return loopListOfIDAndGetMovieViews(firstPage, secondPage);
+    private List<MovieView> getMovieViewsByGenre(String genreNumberTMDB, Integer length) {
+        List<MovieView> movieViews = new ArrayList<>();
+        List<Result> movies = getMoviesByGenre(genreNumberTMDB, length);
+        movies.forEach((movie) -> {
+            MovieView movieView = service.getBannerMovie(movie.toString());
+            movieViews.add(movieView);
+        });
+        return movieViews;
+    }
+
+    private List<Result> getMoviesByGenre(String genreNumberTMDB, Integer length) {
+        List<Result> movies = new ArrayList<>();
+        Integer page = 1;
+        Integer oldSize = -1;
+        while ((movies.size() < length) && (movies.size() != oldSize)) {
+            oldSize = movies.size();
+            GenreID moviesPage = client.getMoviesByGenre(tmdbApiKey, page, genreNumberTMDB, language);
+            movies.addAll(moviesPage.getResults());
+            page++;
+        }
+        return movies.subList(0, length);
     }
 
     private List<MovieView> loopListOfIDAndGetMovieViews(GenreID firstPage, GenreID secondPage) {
@@ -118,3 +134,4 @@ public class GenreService {
         return loopListOfIDAndGetMovieViews(firstPage, secondPage);
     }
 }
+
