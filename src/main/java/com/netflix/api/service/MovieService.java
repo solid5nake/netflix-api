@@ -28,7 +28,8 @@ public class MovieService {
     @Value("${fanart.api_key}")
     private String fanartApiKey;
 
-    private String language = "en-US";
+    @Value("${languageTMDB}")
+    private String language;
     //    combinatie van videos en credits voor de append to usage call
     private String videosAndCredits = "videos,credits";
 //    private String credits = "credits";
